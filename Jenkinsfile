@@ -7,7 +7,5 @@ node{
 
   }
   
-  sh "env.PATH = "${tool 'Maven'}/bin:${env.PATH}"
-  
   sh "echo ${tool 'Maven'}"
 }
