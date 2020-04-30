@@ -3,7 +3,7 @@ node{
 
 	sh "echo git checkout "
 	
-    git url: 'https://github.com/Ytonlo/JavaDesignPatternHeadFirst.git'
+    checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitRemote', url: 'git@github.com:Ytonlo/JavaDesignPatternHeadFirst.git']]])
 
   }
   
