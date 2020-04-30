@@ -6,3 +6,4 @@
 *.lst
 *.properties
 *.jar
+/target/
