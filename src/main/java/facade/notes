@@ -1,0 +1,62 @@
+Une façade ne se limite pas à simplifier une interface : elle découple un client d’un sous-système de composants.
+
+Façades et adaptateurs peuvent envelopper plusieurs classes, mais la finalité d’une façade est de simplifier une
+interface, tandis que celle d’un adaptateur est de la convertir en quelque chose de différent.
+
+Le pattern Façade vous permet de prendre un sous-système complexe et d’en simplifier l’utilisation en implémentant une
+classe Façade qui fournit une interface unique et plus raisonnable.
+
+regarderFilm() observe la même séquence que lorsque nous faisions tout à la main, mais elle l’enveloppe
+dans une méthode pratique qui fait tout le travail. Remarquez que nous déléguons la responsabilité de chaque
+tâche au composant correspondant dans le sous-système.
+
+
+Le pattern Façade vous permet d’éviter de coupler fortement les clients et les sous-systèmes et, comme vous allez le voir
+bientôt, vous aide également à observer un autre principe orienté objet
+
+Le pattern Façade fournit une interface unifiée à l’ensemble des interfaces d’un sous-système. La façade fournit une
+interface de plus haut niveau qui rend le sous système plus facile à utiliser.
+
+*** Principe de conception Ne parlez pas aux inconnus – ne parlez qu’à vos amis immédiats.
+
+Ce principe nous empêche de créer des systèmes constitués
+d’un grand nombre de classes fortement couplées dans
+lesquels les modifications d’une composante se propagent
+en cascade aux autres parties. Lorsqu’il existe trop de
+dépendances entre de nombreuses classes, vous construisez
+un système fragile dont la maintenance sera coûteuse et
+que les autres auront du mal à comprendre en raison de sa
+complexité
+
+Comment ne PAS se faire des amis et influencer les objets
+
+D’accord, mais comment procéder concrètement ?
+Voici quelques lignes directrices : considérez un objet quelconque ; maintenant, à partir de n’importe quelle
+méthode de cet objet, le principe nous enjoint de n’appeler que des méthodes qui appartiennent :
+ß À l’objet lui-même
+ß Aux objets transmis en arguments à la méthode
+ß Aux objets que la méthode crée ou instancie
+ß Aux composants de l’objet
+
+Cela semble un peu draconien, n’est-ce pas ? Quel mal y a-t-il à appeler la méthode d’un objet qu’un autre appel nous a
+retourné ? Eh bien, si nous le faisions, ce serait une requête d’une sous-partie d’un autre objet (et nous augmenterions le
+nombre d’objets que nous connaissons directement). Dans de tels cas, le principe nous force à demander à l’objet d’émettre
+la requête à notre place. Ainsi, nous n’avons pas à connaître les objets qui le composent (et notre cercle d’amis demeure
+restreint).
+
+Sans le Principe :
+public float getTemp() {
+    Thermometre thermometre = station.getThermometre();
+    return thermometre.getTemperature();
+}
+
+Ici, nous obtenons l’objet thermomètre de la station, puis nous appelons la méthode getTemperature() nous-mêmes.
+
+Avec le Principe
+
+public float getTemp() {
+    return station.getTemperature();
+}
+
+Quand nous appliquons le principe, nous ajoutons à la classe Station une méthode qui demande le thermomètre à notre place.
+Cette technique réduit le nombre de classes dont nous dépendons.

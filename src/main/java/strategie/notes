@@ -1,0 +1,56 @@
+Chapitre 1
+
+1. La gestion de tous les comportements au niveau d'une super classe n'est pas une bonne solution
+    - les sous classes peuvent hériter de comportements qui ne les concernent pas
+2. Nécéssité de gerer les classes de sorte à ce que les classes aient les proriétés qui leu conviennent grace aux interfaces
+    - les osus classes n'implémentent que les comportements qui les caractérisent
+
+3. Quel que soit le soin que vous ayez apporté à la conception d’une application, elle devra prendre de l’ampleur et évoluer au fil du temps. Sinon, elle mourra.
+
+4. Énumérez quelles pourraient être les raisons de modifier le code de vos applications
+    - Ajout d'une nouvelle fonctionnalité
+    - Respect d'une nouvelle réglémentation
+    - Mise en place d'une nouvelle application
+    - Changement de base de donné
+    - Changement de services
+
+---------------------------------------------------------------------------------------------------------------------------------
+Nous savons donc que le recours à l’héritage n’a pas été un franc succès, puisque le comportement des canards ne cesse de
+varier d’une sous-classe à l’autre et que ce comportement n’est pas approprié à toutes les sous-classes. Les interfaces Volant et
+Cancaneur semblaient tout d’abord prometteuses – seuls les canards qui volent implémenteraient Volant, etc. – sauf que
+les interfaces Java ne contiennent pas de code : il n’y a donc pas de code réutilisable. Chaque fois que vous voulez changer
+un comportement, vous êtes obligé de le rechercher et de le modifier dans toutes les sous-classes dans lesquelles il est défini,
+en introduisant probablement quelques nouveaux bogues en cours de route !
+--------------------------------------------------------------------------------------------------------------------------------
+
+*** Principe de conception *****
+ - Identifiez les aspects de votre application qui varient et séparez-les de ceux qui demeurent constants
+ - Extrayez ce qui varie et « encapsulez-le » pour ne pas affecter le reste de votre code.
+ - Résultat ? Les modifications du code entraînent moins de conséquences inattendues et vos systèmes sont plus souples !
+
+Voici une autre façon de formuler ce principe : extraire les parties variables et les encapsuler vous permettra plus tard de les
+modifier ou de les augmenter sans affecter celles qui ne varient pas.
+
+Cela dit, il est temps d’extraire les comportements de canard des classes Canard !
+
+**** Programmer une interface, non une implémentation *********
+**** Préférez la composition à l’héritage **********
+
+Le pattern Stratégie définit une famille d’algorithmes, encapsule chacun d’eux et les rend interchangeables.
+Stratégie permet à l’algorithme de varier indépendamment des clients qui l’utilisent
+
+Un gourou de la conception réfléchit à la façon de créer des conceptions souples, faciles à maintenir et qui résistent au
+changement.
+
+Base de l'OO :
+- Abstraction
+- Heritage
+- Polymorphisme
+- Encapsulation
+
+Principe de l'OO
+- Encapsulez ce qui varie
+- Préférez la composition à l'héritage
+- Programmer des interfaces et non des implémentations
+
+

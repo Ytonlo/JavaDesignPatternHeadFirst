@@ -1,0 +1,52 @@
+Encapsuler l’invocation
+
+Le pattern Commande permet de découpler l’auteur d’une requête d’action de l’objet qui effectue réellement l’action.
+En l’occurrence, le demandeur serait la télécommande et l’objet qui effectue l’action serait une instance de l’une de nos classes
+propriétaires.
+
+Une Commande encapsule une requête pour préparer un repas. Représentez-vous la Commande comme un objet, un
+objet qui fait fonction de requête pour préparer un repas. Comme tout autre objet, il peut être transmis, de la
+Serveuse au comptoir, ou à la prochaine Serveuse qui prendra son poste. Il possède une interface qui ne contient qu’une seule
+méthode, faireMarcher(), qui encapsule les actions nécessaires pour préparer le repas. Il possède également une référence à
+l’objet qui doit le préparer (en l’occurrence le Cuisinier). Il est en capsulé au sens où la Serveuse n’a pas besoin de savoir ce que
+contient la commande, ou même qui prépare le repas : il suffit qu’elle pose la commande sur le passe-plats et qu’elle crie « ça
+marche » !
+
+serveuse :  invocateur
+cuisinier : recepteur
+faireMarcher() :  Invocateur
+
+
+Le pattern Commande encapsule une requête comme un objet, autorisant ainsi le paramétrage des clients par différentes
+requêtes, files d’attente et récapitulatifs de requêtes, et de plus, permettant la réversibilité des opérations.
+
+Commande  =  requete encapsulée
+
+Nous savons qu’un objet de commande encapsule une requête en associant un ensemble d’actions à un récepteur spécifique.
+
+Pour ce faire, il groupe les actions et le récepteur dans un objet qui n’expose
+qu’une seule méthode, executer(). Quand elle est appelée, executer() provoque l’invocation des actions sur le récepteur. De l’extérieur, aucun
+autre objet ne sait réellement quelles sont les actions exécutées ni de quel récepteur il s’agit. Ils ne savent qu’une chose : s’ils appellent la méthode
+executer(), leur requête sera satisfaite.
+
+Le Client est responsable de créer une CommandeConcrete et de définir son Recepteur.
+
+L’Invocateur (TelecommandeSimple) contient une commande. À un moment donné, il demande à la commande de satisfaire une requête en appelant sa méthode executer().
+
+Commande déclare une interface pour toutes les commandes. Comme vous le savez déjà, une commande est invoquée via sa méthode executer(), qui demande à un récepteur
+d’effectuer une action. Vous remarquerez également que cette interface possède une méthode annuler(), que nous aborderons un peu plus loin dans ce chapitre
+
+La méthode executer() invoque sur le récepteur la ou les actions nécessaires pour satisfaire la requête
+
+Le Récepteur sait comment effectuer le travail nécessaire pour répondre à la requête. N’importe quelle classe peut jouer le rôle de Récepteur.
+
+La CommandeConcrete définit une liaison entre une action et un Récepteur. L’Invocateur émet une requête en appelant executer() et
+la CommandeConcrete y répond en appelant une ou plusieurs actions sur le Récepteur.
+
+Le pattern permet de découpler l’invocateur de la requête de son récepteur, en se basant sur la composition.
+La commande encapsule le receveur et la requete. L'invocateur permet de setter une commande et d'invoquer la methde exposée par la commande.
+
+Votre boîte à outils commence à s’alourdir ! Dans ce chapitre, nous lui avons ajouté un pattern qui nous
+permet d’encapsuler des méthodes dans des objets de commande, de les mémoriser, de les transmettre et de les invoquer quand nous en avons besoin
+
+Le pattern Commande découple un objet émettant une requête de celui qui sait comment l’exécuter

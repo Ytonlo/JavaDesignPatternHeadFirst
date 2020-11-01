@@ -1,0 +1,26 @@
+Nous n’arrêtons pas d’encapsuler. Nous avons encapsulé la création d’objets et l’invocation de méthodes. Nous avons
+encapsulé des interfaces complexes, des canards, des pizzas... Par quoi pourrions-nous continuer ?
+
+Nous allons entreprendre d’encapsuler des fragments d’algorithmes afin que les sous-classes puissent s’y adapter au moment
+de leur choix. Nous allons même découvrir un principe de conception inspiré par Hollywood.
+
+Nous avons reconnu que les deux recettes étaient globalement identiques, même si certaines étapes demandaient des
+implémentations différentes. Nous avons donc généralisé la recette et nous l’avons placée dans la class de base.
+
+Le Patron de méthode définit les étapes d’un algorithme et permet aux sous-classes de fournir l’implémentation d’une ou
+plusieurs de ses étapes.
+
+Le pattern Patron de méthode définit le squelette d’un algorithme dans une méthode, en déléguant certaines étapes aux sous-classes.
+Patron de méthode permet aux sous-classes de redéfinir certaines étapes d’un algorithme sans modifier la structure de celui-ci.
+
+Ce pattern est entièrement dédié à la création d’un patron d’algorithme. Qu’estce qu’un patron ? Comme vous l’avez constaté,
+c’est simplement une méthode. Plus spécifiquement, c’est une méthode qui définit un algorithme sous la forme d’une suite d’étapes.
+Une ou plusieurs de ces étapes sont définies abstraites et sont implémentées par une sous-classe. Cela permet à la structure de l’algorithme
+de demeurer inchangée, tandis que les sous-classes fournissent une partie de l’implémentation.
+
+Le principe d’Hollywood
+Ne nous appelez pas, nous vous appellerons.
+
+Avec le principe d’Hollywood, nous permettons aux composants de bas niveau de s’adapter à un système, mais les
+composants de haut niveau déterminent quand on en a besoin et comment. Autrement dit, les composants de haut niveau
+traitent les composants de bas niveau à la mode d’Hollywood : « ne nous appelez pas, nous vous appellerons ».

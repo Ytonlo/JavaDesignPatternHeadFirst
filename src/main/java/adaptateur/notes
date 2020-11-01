@@ -1,0 +1,50 @@
+* L’adaptateur convertit une interface en une autre.
+* L’adaptateur implémente l’interface à laquelle vos classes s’attendent.Et converse avec l’interface du fournisseur
+  pour satisfaire vos requêtes.
+
+* L’adaptateur joue le rôle d’intermédiaire : il reçoit les requêtes du client et les convertit en requêtes compréhensibles
+  par les classes du fournisseur
+
+* Disons maintenant que vous êtes à court d’objets Canard et que vous aimeriez utiliser des objets Dindon à la place.
+  De toute évidence, il est impossible d’utiliser les dindons directement parce que leur interface est différente.
+
+
+  Le Client est implémenté selon  l’interface cible.
+  L’Adaptateur implémente l’interface cible et contient une instance de l’Adapté.
+  AdaptateurDindon implémentait l’interface cible, Canard.
+  Dindon était l’interface de l’adapté
+
+  Voici comment le Client utilise l’Adaptateur
+
+  Le client envoie une requête à l’adaptateur en appelant dessus une méthode en utilisant l’interface cible.
+
+  L’adaptateur traduit cette requête en un ou plusieurs appels à l’adapté en utilisant l’interface de l’adapté.
+
+  Le client reçoit les résultats de l’appel et ne sait jamais que c’est un adaptateur qui effectue la traduction.
+
+  Notez que le Client et l’Adapté sont découplés – aucun des deux ne connaît l’autre.
+
+
+  *** Le pattern Adaptateur convertit l’interface d’une classe en une autre conforme à celle du client. L’Adaptateur
+  permet à des classes de collaborer, alors qu’elles n’auraient pas pu le faire du fait d’interfaces incompatibles.
+
+  Le Client ne voit que l’interface Cible.
+  L’Adaptateur implémente l’interface Cible.
+  L’Adaptateur est composé de l’Adapté.
+  Toutes les requêtes sont déléguées à l’Adapté.
+
+  Adaptateurs d’objet et adaptateurs de classe
+  Il existe en réalité deux sortes d’adaptateurs : les adaptateurs d’objet et les adaptateurs de classe.
+
+  Qu’est-ce donc qu’un adaptateur de classe et pourquoi ne pas en avoir parlé ?
+  Parce que l’héritage multiple est nécessaire pour l’implémenter, ce qui est impossible en Java.
+  Mais cela ne veut pas dire que vous n’aurez pas besoin un jour  d’adaptateurs de classe si votre langage favori
+  autorise l’héritage multiple ! Voici le diagramme de classes pour l’héritage multiple :
+
+  Au lieu d’utiliser la composition
+  pour adapter l’Adapté, l’Adaptateur sous-classe maintenant les classes Adapté et Cible
+
+  Cela vous rappelle quelque chose ? Exactement. La seule différence est que
+  l’adaptateur de classe sous-classe la Cible et l’Adapté, tandis que, dans le cas de
+  l’adaptateur d’objet, nous utilisons la composition pour transmettre des requêtes à
+  un Adapté.

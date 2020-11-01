@@ -1,0 +1,131 @@
+4.Patterns fabriques
+
+- Apprêtez-vous à confectionner des conceptions OO faiblement couplées.
+
+- Vous avez appris que le fait de lier votre code à une classe concrète peut le rendre plus fragile et plus rigide
+- Nous voulons utiliser des interfaces pour conserver de la souplesse
+- Mais nous devons créer une instance d’une classe concrète !
+
+- Du point de vue technique, il n’y a pas de problème avec new. Après tout, c’est une partie fondamentale de Java. Le vrai
+  coupable, c’est notre vieil ami, le CHANGEMENT, et l’impact qu’il a sur notre utilisation de new.
+  En codant une interface, vous savez que vous vous isolez de la foule de changements qui pourraient survenir dans un système en aval.
+  Pourquoi ? Si votre code s’appuie sur une interface, il fonctionnera avec toute nouvelle classe qui implémente cette interface via le
+  polymorphisme. Mais si vous avez du code qui utilise de nombreuses classes concrètes, vous êtes en train de chercher les ennuis, parce
+  que vous devrez modifier ce code à chaque ajout de nouvelles classes concrètes. Autrement dit, votre code ne sera pas « fermé à la
+  modification ». Pour l’étendre avec de nouveaux types concrets, vous devrez le « rouvrir ».
+
+  Que pouvez-vous donc faire ? C’est dans des situations comme cellesci qu’on peut se rabattre sur les principes de conception OO pour y
+  chercher des indices. Souvenez-vous : notre premier principe concerne le changement et nous conseille d’identifier les aspects qui varient et de les
+  séparer de ceux qui demeurent les mêmes. Mais il faut bien créer des objets à un moment ou à un autre, et Java ne nous donne
+  qu’un moyen de créer un objet, non ? Alors comment faire ?
+  Comment pourriez-vous prendre toutes les parties de votre application qui instancient des
+  classes concrètes et les encapsuler ou les séparer du reste de l’application ? N’oubliez pas qu’une conception doit être « ouverte à l’extension
+
+- Si nous voulons de la souplesse, il nous faut une interface ou une classe abstraite, mais nous ne pouvons instancier directement ni
+  l’une ni l’autre.
+
+  ** Juste un autre petit rappel : dans le contexte des design patterns, l’expression « implémenter une interface » ne veut
+  PAS toujours dire « écrire une classe qui implémente une interface Java en utilisant le mot-clé « implements » dans sa
+  déclaration ». Dans son acception générale, elle signifie qu’une classe concrète qui implémente une méthode d’un supertype
+  (qui peut être une classe OU une interface) est toujours considérée comme « implémentant l’interface » de ce supertype
+
+  Il existe un moyen de localiser toutes les activités de fabrication des pizzas
+  dans la classe Pizzeria tout en laissant aux franchises la liberté d’avoir leur propre style régional.
+
+  Voici ce que nous allons faire : nous allons remettre la méthode creerPizza()
+  dans Pizzeria. Mais ce sera cette fois une méthode abstraite, puis nous
+  créerons une sous-classe de Pizzeria pour chaque style régional.
+
+  Souvenez-vous : Pizzeria a déjà un système de commandes bien au point dans la méthode
+  commanderPizza() et vous voulez être certain qu’elle est cohérente entre toutes les franchises
+
+  Ce qui varie entre les pizzerias régionales, c’est le style de pizzas qu’elles fabriquent – la pizza
+  de Brest a une pâte fine, celle de Strasbourg est épaisse, etc. – et nous allons remplacer toutes
+  ces variations dans la méthode creerPizza() et la rendre responsable de la création du bon type
+  de pizza. Pour ce faire, nous laissons chaque sous-classe de Pizzeria définir à quoi va ressembler
+  la méthode creerPizza(). Ainsi, nous aurons un certain nombre de sous-classes concrètes de
+  Pizzeria, chacune ayant ses propres variantes, mais toutes s’insérant dans la structure de Pizzeria
+  et continuant à utiliser notre méthode bien au point : commanderPizza().
+
+  Chaque sous-classe redéfinit la méthode creerPizza(), tandis que toutes les sous-classes utilisent la méthode
+  commanderPizza() définie dans Pizzeria. Nous pourrions faire de commanderPizza() une méthode finale si nous voulions
+  réellement appliquer ceci
+
+  Tous les patterns de fabrique encapsulent la création des objets.
+
+  **  Le Design Pattern Fabrication (Factory Method) encapsule la création des objets en laissant aux sous-classes le choix des objets à créer.
+
+  Le pattern Fabrication définit une interface pour la création d’un objet, mais en laissant aux sous-classes le
+  choix des classes à instancier. Fabrication permet à une classe de déléguer l’instanciation à des sous-classes.
+
+  Le Créateur est une classe qui contient les implémentations de toutes les méthodes destinées à manipuler les produits, excepté la
+  méthode de fabrication
+
+  Tous les produits doivent implémenter la même interface, pour que les classes qui utilisent les produits puissent se référer
+  à l’interface, non à la classe concrète.
+
+  Le CréateurConcret a la responsabilité de créer un ou plusieurs produits concrets. C’est la seule classe qui sache comment créer ces
+  produits.
+
+  Une notion doit être bien claire : la réduction des dépendances aux classes concrètes dans notre code est
+  une « bonne chose ». En fait, nous avons un principe de conception OO qui formalise cette notion. Elle porte même
+  un beau nom bien ronflant : Principe d’inversion des dépendances
+
+  ** Dépendez d’abstractions. Ne dépendez pas de classes concrètes
+
+  À première vue, ce principe ressemble beaucoup à « Programmez pour une interface, non pour une
+  implémentation ». Mais s’il est similaire, le Principe d’inversion des dépendances affirme quelque chose de
+  beaucoup plus fort à propos de l’abstraction. Il suggère que nos composants de haut niveau ne doivent pas dépendre
+  des composants de bas niveau, mais que les deux doivent dépendre d’abstractions.
+  Mais qu’est-ce que cela peut bien vouloir dire ? Eh bien commençons par observer de nouveau le
+  diagramme de la page précédente. Pizzeria est notre « composant de haut niveau », les implémentations de pizzas
+  sont nos « composants de bas niveau » et il est clair que Pizzeria dépend des classes de pizza concrètes.
+  Maintenant, ce principe nous dit que nous devons plutôt écrire notre code afin de dépendre d’abstractions, non de
+  classes concrètes. Cela vaut à la fois pour nos modules de haut niveau et pour nos modules de bas niveau.
+  Mais comment procéder ? Réfléchissons comment nous appliquerions ce principe à notre implémentation de Pizzeria
+
+  Un composant « de haut niveau » est une classe dont le comportement est défini en termes d’autres composants « de
+  bas niveau ». Par exemple, Pizzeria est un composant de haut niveau parce que son comportement est défini
+  en termes de pizzas – il crée tous les objets pizza différents, les prépare, les fait cuire, les découpe et les emballe, tandis
+  que les pizzas qu’il utilise sont les composants de bas niveau.
+
+  Maintenant, le principal problème de la Pizzeria hyper dépendante est qu’elle dépend de chaque type de pizza parce
+  qu’elle instancie les types concrets dans sa méthode commanderPizza().
+  Si nous avons bien créé une abstraction, Pizza, nous créons néanmoins les pizzas concrètes dans ce code, ce qui nous
+  empêche d’exploiter réellement les avantages de cette abstraction. Comment extraire ces instanciations de la méthode
+  commanderPizza() ? Eh bien, comme nous le savons, c’est exactement ce que le pattern Fabrication nous permet de faire.
+
+  Après avoir appliqué Fabrication, vous remarquerez que notre composant de haut niveau, Pizzeria, et nos composants de
+  bas niveau, les pizzas, dépendent tous de Pizza, l’abstraction. Fabrication n’est pas la seule technique qui permet de
+  respecter le Principe d’inversion des dépendances, mais c’est l’une des plus puissantes
+
+  OK. Vous commencez par le sommet et vous descendez jusqu’aux classes concrètes. Mais, comme vous l’avez vu, vous ne
+  voulez pas que votre boutique ait connaissance des types concrets de pizzas, parce qu’elle dépendrait alors de ces classes
+  concrètes !
+  Maintenant, « inversez » votre pensée... Au lieu de commencer par en haut, commencez par les Pizzas et réfléchissez à
+  ce que vous pouvez abstraire.
+
+  Les lignes directrices suivantes peuvent vous aider à éviter les conceptions OO qui enfreignent le Principe d’inversion
+  des dépendances :
+   - Aucune variable ne doit contenir une référence à une classe concrète.
+   - Aucune classe ne doit dériver d’une classe concrète.
+   - Aucune classe ne doit redéfinir une méthode implémentée dans une classe de base
+
+  Si vous utilisez l’opérateur new, vous faites référence à une classe concrète. Utilisez une fabrication pour contourner le problème
+
+  Si vous sous-classez une classe concrète, vous dépendez de cette classe concrète
+
+  Sous-classez une abstraction, comme une interface ou une classe abstraite
+
+  Si vous redéfinissez une méthode implémentée, votre classe de base n’était pas une abstraction pour commencer. Ces méthodes
+  implémentées dans la classe de base sont connues pour être partagées par toutes les sousclasses.
+
+
+ ** Le pattern Fabrique Abstraite fournit une interface pour créer des familles d’objets apparentés ou dépendants sans avoir
+  à spécifier leurs classes concrètes..
+
+**  Le Design Pattern Fabrication (Factory Method) encapsule la création des objets en laissant aux sous-classes le choix des objets à créer.
+
+Nous savons que la composition va nous permettre (entre autres) de modifier dynamiquement le comportement au moment de
+l’exécution parce que nous pouvons échanger les implémentations. Comment pourrions-nous appliquer cela à Pizzeria ?
+Quelles implémentations de fabrique pourrions-nous échanger

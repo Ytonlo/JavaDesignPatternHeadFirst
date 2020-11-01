@@ -1,0 +1,61 @@
+Chapitre 3.
+
+* Je croyais que les vrais hommes sous-classaient tout. C’était avant de découvrir le pouvoir de l’extension au moment de
+  l’exécution et non à celui de la compilation. Maintenant, regardez-moi
+
+* Ce chapitre pourrait s’appeler « Les bons concepteurs se méfient de l’héritage ». Nous allons revoir la façon dont on
+  abuse généralement de l’héritage et vous allez apprendre comment « décorer » vos classes au moment de l’exécution en utilisant une forme de composition.
+  Pourquoi ? Une fois que vous connaîtrez les techniques de décoration, vous pourrez affecter à vos objets (ou à ceux de quelqu’un d’autre) de nouvelles
+  responsabilités sans jamais modifier le code des classes sous-jacentes
+
+Problème de conception
+
+Boisson
+    Description
+    lait
+    caramel
+    chocolat
+    chantilly
+
+    getDescription()
+    cout()
+    aLait()
+    setLait()
+    aCaramel()
+    setCaramel()
+    aChocolat()
+    setChocolat()
+    aChantilly()
+    setChantilly()
+    // Autres méthodes..
+
+Quelles sont les exigences ou les autres facteurs qui pourraient changer et avoir un impact sur cette conception ?
+
+- L’augmentation du prix des ingrédients nous obligera à modifier le code existant.
+- De nouveaux ingrédients nous forceront à ajouter de nouvelles méthodes et à modifier la méthode cout() dans la superclasse.
+- Nous pouvons avoir de nouvelles boissons. Pour certaines de ces boissons (thé glacé?), les ingrédients ne seront peut-être
+  plus adaptés, et pourtant la sous-classe Thé continuera à hériter de la méthode aChantilly().
+- Que se passe-t-il si le client veut un double supplément de chocolat ?
+
+************************************************************************************************************************
+Principe de conception
+Les classes doivent être ouvertes à l’extension, mais fermées à la modification
+
+- Soyez attentif lorsque vous choisissez les points du code qui doivent être étendus. Appliquer le principe Ouvert-Fermé
+  PARTOUT est inutile, peu rentable et susceptible de déboucher sur un code complexe et difficile à comprendre
+************************************************************************************************************************
+
+- Les décorateurs ont le même supertype que les objets qu’ils décorent.
+- Vous pouvez utiliser un ou plusieurs décorateurs pour envelopper un objet.
+- Comme le décorateur a le même supertype que l’objet qu’il décore, nous pouvons transmettre un objet décoré à la place de
+  l’objet original (enveloppé).
+- Le décorateur ajoute son propre comportement soit avant soit après avoir délégué le reste du travail à l’objet qu’il décore.
+- Les objets pouvant être décorés à tout moment, nous pouvons les décorer dynamiquement au moment de l’exécution avec autant
+  de décorateurs que nous en avons envie.
+
+
+************************************************************************************************************************
+Definition
+Le pattern Décorateur attache dynamiquement des responsabilités supplémentaires à un objet. Il fournit une alternative
+souple à la dérivation, pour étendre les fonctionnalités.
+************************************************************************************************************************

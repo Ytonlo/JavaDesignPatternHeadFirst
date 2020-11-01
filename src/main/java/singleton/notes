@@ -1,0 +1,44 @@
+Le Pattern Singleton garantit qu’une classe n’a qu’une seule instance et fournit un point d’accès global à cette instance.
+
+En ajoutant le mot-clé synchronized à getInstance(), nous obligeons chaque thread à attendre son tour avant d’entrer dans
+la méthode. Autrement dit, deux threads ne peuvent pas entrer dans la méthode en même temps
+
+Je suis d’accord que cela règle le problème. Mais la synchronisation est coûteuse. Est-ce que ce n’est pas un autre problème ?
+Bien vu, et c’est même pratiquement pire qu’avant : la seule fois que la synchronisation sert à quelque chose, c’est lors
+du premier passage dans la méthode. Autrement dit, une fois que nous avons affecté à la variable uniqueInstance une instance
+de Singleton, nous n’avons plus besoin de synchroniser cette méthode. Après la première passe, la synchronisation
+est une surcharge totalement inutile !
+
+Peut-on améliorer le multithread ?
+
+Pour la plupart des applications Java, nous devons de toute évidence garantir que le Singleton
+fonctionne en présence de plusieurs threads. Mais la synchronisation de la méthode getInstance()
+semble passablement coûteuse. Que faire alors ?
+Plusieurs options se présentent à nous...
+
+
+1. Ne rien faire si la performance getInstance() n’est pas vitale pour votre application
+
+    C’est vrai. Si l’appel de la méthode getInstance() ne cause pas de surcharge substantielle à votre
+    application, n’y pensez plus. Synchroniser getInstance() est simple et efficace. Mais n’oubliez pas
+    qu’une méthode synchronisée peut diminuer les performances par un facteur de 100. Si une
+    partie « à fort trafic » de votre code commence à utiliser getInstance(), vous devrez peut-être
+    reconsidérer la question.
+
+2. Préférer une instance créée au démarrage à une instance créée à la demande
+
+   Si votre application crée et utilise toujours une instance du Singleton ou si les aspects de surcharge
+   de la création et de l’exécution du Singleton sont trop onéreux, vous pouvez préférer le créer au
+   démarrage
+
+   En adoptant cette approche, nous nous reposons sur la JVM pour créer l’unique instance du
+   Singleton quand la classe est chargée. La JVM garantit que l’instance sera créée avant qu’un
+   thread quelconque n’accède à la variable statique uniqueInstance
+
+3. Utilisez le « verrouillage à double vérification » pour réduire l’usage de la synchronisation de getInstance()
+
+    Avec le verrouillage à double vérification, nous commençons par vérifier si une instance est créée, et si non,
+    ALORS nous synchronisons. De cette façon, nous ne synchronisons que la première fois : exactement ce que
+
+    Le mot-clé volatile garantit que plusieurs threads gèrent correctement la variable uniqueInstance quand
+    elle est initialisée à une instance de Singleton

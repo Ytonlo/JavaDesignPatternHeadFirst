@@ -1,0 +1,62 @@
+Chapitre 2.
+* Tenez vos objets au courant
+* Nous avons un pattern qui met vos objets au courant quand il se passe quelque chose qui pourrait les concerner.
+
+1. En codant des implémentations concrètes, nous n’avons aucun moyen d’ajouter ni de supprimer des éléments sans modifier le programme
+
+2. Diffusion + Souscription = pattern Observateur
+   Si vous comprenez ce qu’est l’abonnement à un journal, vous avez compris l’essentiel du pattern Observateur, sauf que nous appelons
+   l’éditeur le SUJET et les abonnés les OBSERVATEURS.
+
+3. Definition
+   Le pattern Observateur définit une relation entre objets de type un-à-plusieurs, de façon que,lorsque un objet change d’état, tous ceux qui en
+   dépendent en soient notifiés et soient mis à jour automatiquement.
+
+
+Dans le pattern Observateur, le Sujet est l’objet qui contient l’état et qui le contrôle. Il y a donc UN sujet avec un état. En revanche,
+les observateurs utilisent l’état, même s’ils ne le possèdent pas. Il y a PLUSIEURS observateurs qui comptent sur le sujet pour les informer de ses
+changements d’état. Il y a donc une relation entre UN sujet et PLUSIEURS observateurs.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+4 . Le pouvoir du Faible Couplage
+Lorsque deux objets sont faiblement couplés, ils peuvent interagir sans pratiquement se connaître.
+
+Le pattern Observateur permet une conception dans laquelle le couplage entre sujets et observateurs est faible.
+Pourquoi ?
+
+    - Le sujet ne sait qu’une chose à propos de l’observateur : il implémente une certaine interface (l’interface Observateur).
+      Il n’a pas besoin de connaître, ni la classe concrète de l’observateur, ni ce qu’il fait ni quoi que ce soit d’autre.
+
+    - Nous pouvons ajouter des observateurs à tout moment. Comme le sujet dépend uniquement d’une liste d’objets qui implémentent l’interface Observateur,
+      nous pouvons ajouter des observateurs à volonté. En fait, nous pouvons remplacer n’importe quel observateur par un autre au moment de l’exécution : le sujet
+      continuera à ronronner comme si de rien n’était. De même, nous pouvons supprimer des observateurs n’importe quand.
+
+    - Nous n’avons jamais besoin de modifier le sujet pour ajouter de nouveaux types d’observateurs. Disons que se présente une nouvelle classe
+      concrète qui a besoin d’être un observateur. Nous n’avons pas besoin d’ajouter quoi que ce soit au sujet pour gérer ce nouveau type.
+      Il suffit d’implémenter l’interface Observateur dans la nouvelle classe et de l’enregistrer en tant qu’observateur. Le sujet
+      ne s’en soucie aucunement : il continuera à diffuser des notifications à tous les objets qui implémentent l’interface Observateur.
+
+    - Nous pouvons réutiliser les objets et les sujets indépendamment les uns des autres. Si nous avons un autre emploi d’un sujet ou d’un observateur, nous
+      pouvons les réutiliser sans problème parce qu’ils sont faiblement couplés.
+
+    - Les modifications des sujets n’affectent pas les observateurs et inversement. Comme ils sont faiblement couplés, nous sommes libres de les
+     modifier à notre guise tant que les objets continuent à remplir leurs obligations : implémenter les interfaces
+
+
+***************************************************************************************************************************************************************
+5. Principe de conception
+   Efforcez-vous de coupler faiblement les objets qui interagissent.
+
+Les conceptions faiblement couplées nous permettent de construire des systèmes OO souples, capables de faire face aux changements
+parce qu’ils minimisent l’interdépendance entre les objets.
+
+***************************************************************************************************************************************************************
+
+** Principe de conception
+   Identifiez les aspects de votre application qui varie et séparez-les de ce qui demeure inchangé.
+
+** Principe de conception
+   Programmez des interfaces, non des implémentations.
+
+** Principe de conception
+   Préférez la composition à l’héritage.
